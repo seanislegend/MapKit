@@ -20,8 +20,8 @@ var MKLocationManager = function () {
   this.canUseLocation = false
 
   this.execSuccess = function (data) {
-    console.log("#MKLocationManager() Executed native command successfully")
-    console.log(data)
+    //console.log("#MKLocationManager() Executed native command successfully")
+    //console.log(data)
   }
   this.execFailure = function (err) {
     console.warn("#MKLocationManager() MapKit failed to execute native command:")
@@ -29,8 +29,8 @@ var MKLocationManager = function () {
   }
 
   this.handleLocationAuthStatus = function (locationAuthStatus) {
-    console.log(locationAuthStatus)
-    console.log(that)
+    //console.log(locationAuthStatus)
+    //console.log(that)
 
     that.locationAuthStatus = locationAuthStatus
     if (that.checkLocationAuthStatus_callback != undefined)
@@ -73,8 +73,8 @@ var MKSimplePin = function (map, lat, lon, title, description) {
   this.title = title
   this.description = description
   this.execSuccess = function (data) {
-    console.log("#MKSimplePin(${that.title}) Executed native command successfully")
-    console.log(data)
+    //console.log("#MKSimplePin(${that.title}) Executed native command successfully")
+    //console.log(data)
   }
   this.execFailure = function (err) {
     console.warn("#MKSimplePin(${that.title}) MapKit failed to execute native command:")
@@ -82,7 +82,7 @@ var MKSimplePin = function (map, lat, lon, title, description) {
   }
   this.createPin = function () {
     that = this
-    console.log("Creating pin: ${[this.map.mapArrayId, this.lat, this.lon, this.title, this.description].join(" - ")}")
+    //console.log("Creating pin: ${[this.map.mapArrayId, this.lat, this.lon, this.title, this.description].join(" - ")}")
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addSimpleMapPin', [this.map.mapArrayId, this.lat, this.lon, this.title, this.description])
   }
   this.createPinArray = function () {
@@ -111,8 +111,8 @@ var MKComplexPin = function (map, lat, lon, title, description, pinColor, pinIma
   this.infoClickCallback = infoClickCallback
   this.pinClickCallback = pinClickCallback
   this.execSuccess = function (data) {
-    console.log("#MKComplexPin(${that.title}) Executed native command successfully")
-    console.log(data)
+    //console.log("#MKComplexPin(${that.title}) Executed native command successfully")
+    //console.log(data)
   }
   this.execFailure = function (err) {
     console.warn("#MKComplexPin(${that.title}) MapKit failed to execute native command:")
@@ -120,7 +120,7 @@ var MKComplexPin = function (map, lat, lon, title, description, pinColor, pinIma
   }
   this.createPin = function () {
     that = this
-    console.log("Creating pin: ${[this.map.mapArrayId, this.lat, this.lon, this.title, this.description].join(" - ")}")
+    //console.log("Creating pin: ${[this.map.mapArrayId, this.lat, this.lon, this.title, this.description].join(" - ")}")
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'addComplexMapPin', [this.map.mapArrayId, this.lat, this.lon, this.title, this.description, ((this.pinColor == "purple")?3:((this.pinColor == "green")?2:1)), this.pinImage, this.pinImageOffsetX, this.pinImageOffsetY, ((this.draggable)?1:0), ((this.canShowCallout)?1:0), ((this.showInfoButton)?1:0)])
   }
   this.createPinArray = function () {
@@ -269,8 +269,8 @@ var MKMap = function (mapId) {
     }
   }
   this.execSuccess = function (data) {
-    console.log("#MKMap(" + that.mapId + ") Executed native command successfully")
-    console.log(data)
+    //console.log("#MKMap(" + that.mapId + ") Executed native command successfully")
+    //console.log(data)
   }
   this.execFailure = function (err) {
     console.warn("#MKMap(" + that.mapId + ") MapKit failed to execute native command:")
@@ -279,7 +279,7 @@ var MKMap = function (mapId) {
   this.createMap = function (c) {
     if (!this.created)
     {
-      console.log("#MKMap(" + this.mapId + ") Creating map")
+      //console.log("#MKMap(" + this.mapId + ") Creating map")
       this.created = true
       that = this
       cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'createMapView', [this.mapArrayId, this.options.height, this.options.width, this.options.xPos, this.options.yPos])
@@ -288,19 +288,19 @@ var MKMap = function (mapId) {
   this.destroyMap = function () {
     if (!this.destroyed)
     {
-      console.log("#MKMap(" + this.mapId + ") Destroying map")
+      //console.log("#MKMap(" + this.mapId + ") Destroying map")
       this.destroyed = true
       that = this
       cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeMapView', [this.mapArrayId])
     }
   }
   this.showMap = function () {
-    console.log("#MKMap(" + this.mapId + ") Showing map")
+    //console.log("#MKMap(" + this.mapId + ") Showing map")
     that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'showMapView', [this.mapArrayId])
   }
   this.hideMap = function () {
-    console.log("#MKMap(" + this.mapId + ") Hiding map")
+    //console.log("#MKMap(" + this.mapId + ") Hiding map")
     that = this
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'hideMapView', [this.mapArrayId])
   }
@@ -412,7 +412,7 @@ var MKMap = function (mapId) {
   }
 
   this.addSimpleMapPin = function (data) {
-    console.log(isPlainObject(data))
+    //console.log(isPlainObject(data))
     if (data != undefined && isPlainObject(data))
     {
       lat = data.lat
@@ -472,9 +472,9 @@ var MKMap = function (mapId) {
     draggable = data.draggable === true;
     canShowCallout = data.canShowCallout !== false;
     showInfoButton = data.showInfoButton === true;
-    pinDragCallback = data.pinDragCallback || function (pin) { console.log("Pin was moved: "+pin.title) }
-    infoClickCallback = data.infoClickCallback || function (pin) { console.log("PinInfo was clicked: "+pin.title) }
-    pinClickCallback = data.pinClickCallback || function (pin) { console.log("Pin was clicked: "+pin.title) }
+    pinDragCallback = data.pinDragCallback || function (pin) { /*console.log("Pin was moved: "+pin.title)*/ }
+    infoClickCallback = data.infoClickCallback || function (pin) { /*console.log("PinInfo was clicked: "+pin.title)*/ }
+    pinClickCallback = data.pinClickCallback || function (pin) { /*console.log("Pin was clicked: "+pin.title)*/ }
 
     if (this.Pins[title] != undefined)
     {
@@ -497,7 +497,7 @@ var MKMap = function (mapId) {
 
 function handlePinInfoClickCallback(mapId, title)
 {
-  console.log("Got info click on Map: ${parseInt(mapId)} on Pin: ${title}")
+  //console.log("Got info click on Map: ${parseInt(mapId)} on Pin: ${title}")
   Pin = MapArray[parseInt(mapId)].Pins[title]
   Pin.infoClickCallback(Pin)
 }
@@ -505,7 +505,7 @@ function handlePinInfoClickCallback(mapId, title)
 function handlePinDragCallback(mapId, title, lat, lon)
 {
   // console.dir(MapDict.undefined)
-  console.log("Got drag end on Map: ${parseInt(mapId)} on Pin: ${title}")
+  //console.log("Got drag end on Map: ${parseInt(mapId)} on Pin: ${title}")
   Pin = MapArray[parseInt(mapId)].Pins[title]
   Pin.lat = lat
   Pin.lon = lon
@@ -514,7 +514,7 @@ function handlePinDragCallback(mapId, title, lat, lon)
 
 function handlePinClickCallback(mapId, title)
 {
-  console.log("Got pin click on Map: ${parseInt(mapId)} on Pin: ${title}")
+  //console.log("Got pin click on Map: ${parseInt(mapId)} on Pin: ${title}")
   Pin = MapArray[parseInt(mapId)].Pins[title]
   Pin.pinClickCallback(Pin)
 }
@@ -522,7 +522,7 @@ function handlePinClickCallback(mapId, title)
 
 function handleGetMapCenterCallback(mapId, coords)
 {
-  console.log("Got map center callback on Map: ${parseInt(mapId)}")
+  //console.log("Got map center callback on Map: ${parseInt(mapId)}")
   MapArray[parseInt(mapId)].getCenterCallback(coords)
   MapArray[parseInt(mapId)].getCenterCallback = function () { console.warn("Get map center called without valid callback!") }
 }

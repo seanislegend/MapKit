@@ -353,7 +353,7 @@ UIWebView* webView;
 
 
 
-    NSLog(@"%@", mapView);
+    //NSLog(@"%@", mapView);
 
     mapView.showsScale = YES;
 
@@ -950,9 +950,9 @@ UIWebView* webView;
     if ([annotation isKindOfClass:[MKComplexMapPin class]])
     {
       MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
-      NSLog(@"Clicked Complex Pin Infobutton");
-      // NSLog(pin.mapId);
-      NSLog(pin.title);
+      //NSLog(@"Clicked Complex Pin Infobutton");
+      // //NSLog(pin.mapId);
+      //NSLog(pin.title);
       NSMutableString* jsParam = [[NSMutableString alloc] init];
       [jsParam appendString:@"\""];
       [jsParam appendString:[NSString stringWithFormat:@"%f", pin.mapId]];
@@ -961,7 +961,7 @@ UIWebView* webView;
       [jsParam appendString:@"\""];
       [jsParam appendString:pin.title];
       [jsParam appendString:@"\""];
-      NSLog(jsParam);
+      //NSLog(jsParam);
 
       NSString* jsString = [NSString stringWithFormat:@"MKInterface.__objc__.pinInfoClickCallback(%@);", jsParam];
       [self.webView stringByEvaluatingJavaScriptFromString:jsString];
@@ -974,9 +974,9 @@ UIWebView* webView;
     if ([annotation isKindOfClass:[MKComplexMapPin class]] && newState == MKAnnotationViewDragStateEnding)
     {
         MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
-        NSLog(@"Moved Complex Pin Infobutton");
-        NSLog(@"%f", pin.mapId);
-        NSLog(pin.title);
+        //NSLog(@"Moved Complex Pin Infobutton");
+        //NSLog(@"%f", pin.mapId);
+        //NSLog(pin.title);
         NSMutableString* jsParam = [[NSMutableString alloc] init];
         [jsParam appendString:@"\""];
         [jsParam appendString:[NSString stringWithFormat:@"%f", pin.mapId]];
@@ -989,7 +989,7 @@ UIWebView* webView;
         [jsParam appendString:[NSString stringWithFormat:@"%f", pin.coordinate.latitude]];
         [jsParam appendString:@","];
         [jsParam appendString:[NSString stringWithFormat:@"%f", pin.coordinate.longitude]];
-        NSLog(jsParam);
+        //NSLog(jsParam);
 
         NSString* jsString = [NSString stringWithFormat:@"MKInterface.__objc__.pinDragCallback(%@);", jsParam];
         [self.webView stringByEvaluatingJavaScriptFromString:jsString];
@@ -1003,9 +1003,9 @@ UIWebView* webView;
     if ([annotation isKindOfClass:[MKComplexMapPin class]])
     {
         MKComplexMapPin *pin = (MKComplexMapPin *)annotation;
-        NSLog(@"Clicked Complex Pin");
-        NSLog(@"%f", pin.mapId);
-        NSLog(pin.title);
+        //NSLog(@"Clicked Complex Pin");
+        //NSLog(@"%f", pin.mapId);
+        //NSLog(pin.title);
         NSMutableString* jsParam = [[NSMutableString alloc] init];
         [jsParam appendString:@"\""];
         [jsParam appendString:[NSString stringWithFormat:@"%f", pin.mapId]];
@@ -1014,7 +1014,7 @@ UIWebView* webView;
         [jsParam appendString:@"\""];
         [jsParam appendString:pin.title];
         [jsParam appendString:@"\""];
-        NSLog(jsParam);
+        //NSLog(jsParam);
 
         NSString* jsString = [NSString stringWithFormat:@"MKInterface.__objc__.pinClickCallback(%@);", jsParam];
         [self.webView stringByEvaluatingJavaScriptFromString:jsString];
