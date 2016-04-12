@@ -1047,7 +1047,7 @@ UIWebView* webView;
 
             NSURL *url = [NSURL URLWithString:pin.pinImage];
             NSData *imageData = [NSData dataWithContentsOfURL:url];
-            pav.image = [UIImage imageWithData:imageData];
+            pav.image = [UIImage imageWithData:imageData scale:2];
             pav.centerOffset = CGPointMake(pin.pinImageOffsetX, pin.pinImageOffsetY);
         }
         else
