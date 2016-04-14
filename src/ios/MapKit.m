@@ -815,7 +815,7 @@ UIWebView* webView;
     for (int i = 0; i < pins.count; i++)
     {
         MKPointAnnotation* pin = [pins objectAtIndex:i];
-        if (pin.title == pinTitle)
+        if ([pin.title isEqualToString:pinTitle])
         {
             [mapView removeAnnotation:pin];
         }
