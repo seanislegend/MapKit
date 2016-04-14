@@ -997,6 +997,17 @@ UIWebView* webView;
 
 }
 
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(nonnull MKAnnotationView *)views
+{
+    for (MKAnnotationView *view in views) 
+    {
+        if ([[view annotation] isKindOfClass:[MKComplexMapPin class]]) 
+        {
+            [[view superview] bringSubviewToFront:view];
+        }
+    }
+}
+
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(nonnull MKAnnotationView *)view
 {
     id <MKAnnotation> annotation = [view annotation];
