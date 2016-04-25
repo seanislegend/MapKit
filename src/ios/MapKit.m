@@ -1104,10 +1104,38 @@ UIWebView* webView;
     return pav;
 }
 
+-(void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
+  UIView* view = mapView.subviews.firstObject;
 
+  for (UIGestureRecognizer* recognizer in view.gestureRecognizers)
+  {
+    if (recognizer.state == UIGestureRecognizerStateBegan
+      || recognizer.state == UIGestureRecognizerStateEnded)
+    {
+      self.nextRegionChangeIsFromUserInteraction = YES;
+      break;
+    }
+  }
+}
 
+-(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+  UIView* view = mapView;
 
+  if (self.nextRegionChangeIsFromUserInteraction)
+  {
+    self.nextRegionChangeIsFromUserInteraction = NO;
 
+    NSMutableString* jsParam = [[NSMutableString alloc] init];
+    [jsParam appendString:@"\""];
+    [jsParam appendString:[NSString stringWithFormat:@"%i", view.tag]];
+    [jsParam appendString:@"\""];
+    // NSLog(jsParam);
 
+    NSString* jsString = [NSString stringWithFormat:@"MKInterface.__objc__.regionChangedCallback(%@);", jsParam];
+    [self.webView stringByEvaluatingJavaScriptFromString:jsString];
+  }
+}
 
 @end

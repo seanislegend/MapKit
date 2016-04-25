@@ -170,6 +170,7 @@ var MKMap = function (mapId) {
   this.options.mapPointsOfInterest = true
   this.options.mapUserLocation = false
   this.getCenterCallback = function () { console.warn("Get map center called without valid callback!") }
+  this.regionChangedCallback = function () { console.warn("Get map region called without valid callback!") }
   this.PinsArray = []
   this.Pins = {}
   this.setBounds = function (data) {
@@ -490,7 +491,12 @@ var MKMap = function (mapId) {
     cordovaRef.exec(this.execSuccess, this.execFailure, 'MapKit', 'removeAllMapPins', [this.mapArrayId])
   }
 
-
+  this.regionChangedCallback = function (callback) {
+    if (callback != undefined)
+    {
+      this.regionChangedCallback = callback
+    }
+  }
 
 
 }
@@ -527,6 +533,12 @@ function handleGetMapCenterCallback(mapId, coords)
   MapArray[parseInt(mapId)].getCenterCallback = function () { console.warn("Get map center called without valid callback!") }
 }
 
+function handleRegionChangedCallback(mapId)
+{
+  //console.log("Got region change on Map: ${parseInt(mapId)}")
+  MapArray[parseInt(mapId)].regionChangedCallback();
+}
+
 window.MKInterface = {}
 window.MKInterface.MKMap = MKMap
 window.MKInterface.locationManager = locationManager
@@ -537,3 +549,4 @@ window.MKInterface.__objc__.pinInfoClickCallback = handlePinInfoClickCallback
 window.MKInterface.__objc__.pinDragCallback = handlePinDragCallback
 window.MKInterface.__objc__.pinClickCallback = handlePinClickCallback
 window.MKInterface.__objc__.getCenterCallback = handleGetMapCenterCallback
+window.MKInterface.__objc__.regionChangedCallback = handleRegionChangedCallback

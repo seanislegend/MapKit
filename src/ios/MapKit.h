@@ -9,6 +9,11 @@
 #import <Cordova/CDV.h>
 
 @interface MapKit : CDVPlugin
+{
+    BOOL nextRegionChangeIsFromUserInteraction;
+}
+
+@property (nonatomic, assign) BOOL nextRegionChangeIsFromUserInteraction;
 
 - (void) test:(CDVInvokedUrlCommand*)command;
 
