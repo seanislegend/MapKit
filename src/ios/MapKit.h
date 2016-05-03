@@ -15,7 +15,7 @@
 
 @property (nonatomic, assign) BOOL nextRegionChangeIsFromUserInteraction;
 
-- (void) test:(CDVInvokedUrlCommand*)command;
+- (void) MapKit:(CDVInvokedUrlCommand*)command;
 
 // - (void) checkLocationPermission(CDVInvokedUrlCommand*)command;
 // - (void) requestLocationAlwaysPermission(CDVInvokedUrlCommand*)command;
