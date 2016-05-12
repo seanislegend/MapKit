@@ -8,7 +8,7 @@
 
 #import <Cordova/CDV.h>
 
-@interface MapKit : CDVPlugin
+@interface MapKit : CDVPlugin <UIWebViewDelegate>
 {
     BOOL nextRegionChangeIsFromUserInteraction;
 }

@@ -7,13 +7,14 @@
 //
 
 #import "MapKit.h"
+#import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MKComplexMapPin.h"
 
-//@interface ViewController : UIViewController <MKMapViewDelegate>
+// @interface ViewController : UIViewController <MKMapViewDelegate>
 
-
+// @end
 
 @implementation MapKit
 
@@ -139,7 +140,7 @@ UIWebView* webView;
     mapView.delegate = self;
     [webView addSubview:mapView];
 
-
+    mapView = nil;
 
 
     CDVPluginResult* result = [CDVPluginResult
@@ -157,7 +158,7 @@ UIWebView* webView;
     MKMapView* mapView = [webView viewWithTag:mapId];
 
     mapView.hidden = NO;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -175,7 +176,7 @@ UIWebView* webView;
     MKMapView* mapView = [webView viewWithTag:mapId];
 
     mapView.hidden = YES;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -190,9 +191,17 @@ UIWebView* webView;
 {
     NSString* callbackId = [command callbackId];
     CGFloat mapId = [[[command arguments] objectAtIndex:0] floatValue];
-    MKMapView* mapView = [webView viewWithTag:mapId];
-    [mapView removeFromSuperview];
+    MKMapView* mapView = [self.webView viewWithTag:mapId];
 
+    mapView.showsUserLocation = NO;
+    mapView.mapType = MKMapTypeHybrid;
+    mapView.delegate = nil;
+    [mapView.layer removeAllAnimations];
+    [mapView removeAnnotations:[mapView annotations]];
+    [mapView removeFromSuperview];
+    locationManager.delegate = nil;
+    locationManager = nil;
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -211,6 +220,7 @@ UIWebView* webView;
 
     [mapView setFrame:CGRectMake(mapView.frame.origin.x, mapView.frame.origin.y, mapView.frame.size.width, height)];
 
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -230,6 +240,7 @@ UIWebView* webView;
 
     [mapView setFrame:CGRectMake(mapView.frame.origin.x, mapView.frame.origin.y, width, mapView.frame.size.height)];
 
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -250,6 +261,7 @@ UIWebView* webView;
 
     [mapView setFrame:CGRectMake(mapView.frame.origin.x, mapView.frame.origin.y, width, height)];
 
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -269,6 +281,7 @@ UIWebView* webView;
 
     [mapView setFrame:CGRectMake(XPos, mapView.frame.origin.y, mapView.frame.size.width, mapView.frame.size.height)];
 
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -288,6 +301,7 @@ UIWebView* webView;
 
     [mapView setFrame:CGRectMake(mapView.frame.origin.x, YPos, mapView.frame.size.width, mapView.frame.size.height)];
 
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -308,6 +322,7 @@ UIWebView* webView;
 
     [mapView setFrame:CGRectMake(XPos, YPos, mapView.frame.size.width, mapView.frame.size.height)];
 
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -336,6 +351,8 @@ UIWebView* webView;
         stringRes = @"false";
     }
 
+    mapView = nil;
+
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:stringRes];
@@ -356,7 +373,7 @@ UIWebView* webView;
     //NSLog(@"%@", mapView);
 
     mapView.showsScale = YES;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -373,7 +390,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsScale = NO;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -390,7 +407,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsUserLocation = YES;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -407,7 +424,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsUserLocation = NO;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -424,7 +441,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsCompass = YES;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -441,7 +458,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsCompass = NO;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -458,7 +475,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsPointsOfInterest = YES;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -475,7 +492,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsPointsOfInterest = NO;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -492,7 +509,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsBuildings = YES;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -509,7 +526,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsBuildings = NO;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -526,7 +543,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsTraffic = YES;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -543,7 +560,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     mapView.showsTraffic = NO;
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -561,7 +578,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView setAlpha: newAlpha];
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -582,7 +599,7 @@ UIWebView* webView;
 
     CLLocationCoordinate2D newCenter = CLLocationCoordinate2DMake(centerLat, centerLon);
     [mapView setCenterCoordinate:newCenter animated:animated];
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -599,7 +616,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView setRotateEnabled:YES];
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -615,7 +632,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView setRotateEnabled:NO];
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -632,7 +649,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView setScrollEnabled:YES];
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -648,7 +665,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView setScrollEnabled:NO];
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -665,7 +682,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView setUserInteractionEnabled:YES];
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -681,7 +698,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView setUserInteractionEnabled:NO];
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -708,6 +725,7 @@ UIWebView* webView;
     MKCoordinateRegion newRegion = MKCoordinateRegionMake(newCenter, newSpan);
     [mapView setRegion:newRegion animated:animated];
 
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -736,6 +754,8 @@ UIWebView* webView;
       [webView stringByEvaluatingJavaScriptFromString: jsEval];
     }
 
+    mapView = nil;
+
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:[NSString stringWithFormat:@"%f", mapId]];
@@ -762,6 +782,8 @@ UIWebView* webView;
 
 
     [mapView addAnnotation:pin];
+    pin = nil;
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -795,9 +817,11 @@ UIWebView* webView;
         pin.subtitle = description;
 
         [Pins addObject:pin];
+        pin = nil;
     }
 
     [mapView addAnnotations:Pins];
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -825,6 +849,8 @@ UIWebView* webView;
         }
     }
 
+    pins = nil;
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -841,7 +867,7 @@ UIWebView* webView;
     MKMapView* mapView = [self.webView viewWithTag:mapId];
 
     [mapView removeAnnotations:mapView.annotations];
-
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -940,6 +966,8 @@ UIWebView* webView;
 //    pinAnnotation.canShowCallout = canShowCallout;
 
     [mapView addAnnotation:pinAnnotation];
+    pinAnnotation = nil;
+    mapView = nil;
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -1121,6 +1149,8 @@ UIWebView* webView;
       break;
     }
   }
+
+  view = nil;
 }
 
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
@@ -1140,6 +1170,8 @@ UIWebView* webView;
     NSString* jsString = [NSString stringWithFormat:@"MKInterface.__objc__.regionChangedCallback(%@);", jsParam];
     [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:jsString];
   }
+
+  view = nil;
 }
 
 @end
